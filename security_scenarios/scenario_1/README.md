@@ -53,7 +53,7 @@ The passive Routing Service will listen for incoming communications. The active 
     4. Run Routing Service:
     ```
     cd security_scenarios/scenario_1/
-    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_passive.xml -cfgName RsConfig_passive
+    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_active.xml -cfgName RsConfig_active
     ```
 
 # Expected output
