@@ -12,11 +12,11 @@ rti_security_plugins-6.1.0-host-<architecture>.rtipkg
 Network configuration:
 * Security rule on your AWS instance to allow incoming / outgoing traffic on PUBLIC_PORT, for the UDP protocol. For instance:
 
-![](../../images/configuration_aws.png)
+![](../../resources/images/configuration_aws.png)
 
 ## Diagram
 
-![](../../images/security_scenario_3.png)
+![](../../resources/images/security_scenario_3.png)
 
 The passive Routing Service will listen for incoming communications. The active Routing Services will use their initial peers to start the communication with the passive one. AWS's Routing Service will relay the communication. In the diagram above, the public address needs to be known by the remote active Routing Services. Only domain 2 (WAN) will be secured.
 

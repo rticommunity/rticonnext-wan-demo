@@ -12,11 +12,11 @@ rti_security_plugins-6.1.0-host-<architecture>.rtipkg
 Network configuration:
 * Security rule on your AWS instance to allow incoming / outgoing traffic on PUBLIC_PORT, for the UDP protocol. For instance:
 
-![](../../images/configuration_aws.png)
+![](../../resources/images/configuration_aws.png)
 
 ## Diagram
 
-![](../../images/security_scenario_2.png)
+![](../../resources/images/security_scenario_2.png)
 
 Cloud Discovery Service will put the active Routing Service in contact when they reach out to it. The active Routing Services will point their their initial peers at AWS. In the diagram above, AWS's address needs to be known by the remote active Routing Services. Only domain 2 (WAN) will be secured.
 

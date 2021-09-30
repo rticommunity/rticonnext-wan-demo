@@ -11,11 +11,11 @@ rti_real_time_wan_transport-6.1.0-host-<architecture>.rtipkg
 Network configuration:
 * Static mapping of your home office's router between a PUBLIC_PORT and an INTERNAL_PORT, for the UDP protocol. For instance:
 
-![](../../images/configuration_home_office_router.png)
+![](../../resources/images/configuration_home_office_router.png)
 
 ## Diagram
 
-![](../../images/non_security_scenario_1.png)
+![](../../resources/images/non_security_scenario_1.png)
 
 The passive Routing Service will listen for incoming communications. The active Routing Service will use its initial peers to start the communication with the passive one. In the diagram above, the public address needs to be known by the remote active Routing Services.
 
