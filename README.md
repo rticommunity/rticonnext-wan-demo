@@ -13,6 +13,7 @@ These are the RTI packages you will need:
 ```plaintext
 rti_connext_dds-6.1.2-pro-host-<architecture>.<run/exe>
 rti_real_time_wan_transport-6.1.2-host-<architecture>.rtipkg
+rti_cloud_discovery_service-6.1.2-host-<architecture>.rtipkg
 rti_security_plugins-6.1.2-host-<architecture>.rtipkg (if using Security)
 ```
 
@@ -21,6 +22,7 @@ As an example, if you were using Linux 64 bits, you would need these packages:
 ```plaintext
 rti_connext_dds-6.1.2-pro-host-x64Linux.run
 rti_real_time_wan_transport-6.1.2-host-x64Linux.rtipkg
+rti_cloud_discovery_service-6.1.2-host-x64Linux.rtipkg
 rti_security_plugins-6.1.2-host-x64Linux.rtipkg
 ```
 
