@@ -5,9 +5,10 @@
 Packages:
 
 ```plaintext
-rti_connext_dds-6.1.2-pro-host-<architecture>.<run/exe>
-rti_real_time_wan_transport-6.1.2-host-<architecture>.rtipkg
-rti_security_plugins-6.1.2-host-<architecture>.rtipkg
+rti_connext_dds-7.3.0-pro-host-<architecture>.<run/exe>
+rti_real_time_wan_transport-7.3.0-host-<architecture>.rtipkg
+rti_cloud_discovery_service-7.3.0-host-<architecture>.rtipkg
+rti_security_plugins-7.3.0-host-<architecture>.rtipkg
 ```
 
 With regards to network configuration, you'll need to add a security rule on
