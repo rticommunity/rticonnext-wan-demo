@@ -6,6 +6,7 @@ with the IP address seen by a STUN server.
 ## Requirements
 
 - Python 3.x
+- python3-pip
 - `requests` library
 - `pystun3` library
 
@@ -40,12 +41,20 @@ indicates that you have a Cone NAT.
 
 ## Example Output
 
+```plaintext
+Running... This will take a few seconds
+
 Public IP: 203.0.113.1
 STUN server IP: 203.0.113.1
-You have a Cone NAT.
+You have a Cone NAT
+```
 
 If the IP addresses do not match, the script will output:
 
+```plaintext
+Running... This will take a few seconds
+
 Public IP: 203.0.113.1
 STUN server IP: 198.51.100.1
-You do not have a Cone NAT.
+You do not have a Cone NAT
+```
