@@ -1,0 +1,81 @@
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----909A01D0ED1FB57A2C5F1FE0DAFCA834"
+
+This is an S/MIME signed message
+
+------909A01D0ED1FB57A2C5F1FE0DAFCA834
+Content-Type: text/plain
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2024 Copyright, Real-Time Innovations, Inc. (RTI) All rights reserved.
+
+RTI grants Licensee a license to use, modify, compile, and create derivative
+works of the software solely for use with RTI Connext DDS.  Licensee may
+redistribute copies of the software provided that all such copies are
+subject to this license. The software is provided "as is", with no warranty
+of any type, including any warranty for fitness for any purpose. RTI is
+under no obligation to maintain or support the software.  RTI shall not be
+liable for any incidental or consequential damages arising out of the use or
+inability to use the software. -->
+
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/7.3.0/dds_security_permissions.xsd">
+    <permissions>
+        <grant name="ArmParticipant">
+            <subject_name>/C=US/ST=CA/O=Company Name/emailAddress=support@company_name.com/CN=RsPassive</subject_name>
+            <validity>
+                <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
+                <not_before>2024-06-01T13:00:00</not_before>
+                <not_after>2037-06-01T13:00:00</not_after>
+            </validity>
+            <allow_rule>
+                <domains>
+                    <id>2</id>
+                </domains>
+                <!-- Best practice: use the right topics your DomainParticipant publishes and subscribes to -->
+                <!-- This is not a best practice, but for this demo, we'll use (*) for simplicity -->
+                <publish>
+                    <topics>
+                        <topic>*</topic>
+                    </topics>
+                </publish>
+                <subscribe>
+                    <topics>
+                        <topic>*</topic>
+                    </topics>
+                </subscribe>
+            </allow_rule>
+            <default>DENY</default>
+        </grant>
+    </permissions>
+</dds>
+------909A01D0ED1FB57A2C5F1FE0DAFCA834
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIIEBgYJKoZIhvcNAQcCoIID9zCCA/MCAQExDzANBglghkgBZQMEAgEFADALBgkq
+hkiG9w0BBwGgggHoMIIB5DCCAYkCFBlDRTPRTXN8CmUSJrGLEizvYDkJMAoGCCqG
+SM49BAMCMHQxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEVMBMGA1UECgwMQ29t
+cGFueSBOYW1lMRgwFgYDVQQDDA9Db21wYW55IE5hbWUgQ0ExJzAlBgkqhkiG9w0B
+CQEWGHN1cHBvcnRAY29tcGFueV9uYW1lLmNvbTAeFw0yNTA1MjIyMzE2MDRaFw0z
+MDA1MjEyMzE2MDRaMHQxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEVMBMGA1UE
+CgwMQ29tcGFueSBOYW1lMRgwFgYDVQQDDA9Db21wYW55IE5hbWUgQ0ExJzAlBgkq
+hkiG9w0BCQEWGHN1cHBvcnRAY29tcGFueV9uYW1lLmNvbTBZMBMGByqGSM49AgEG
+CCqGSM49AwEHA0IABF4lKb4q52WAObhL5khmXEEmS61KXbihjHdXV1XIXsg4ECd7
+toikRVlXWD2Ruuz7QwHyW49ZJkrYS5awXP+uXV4wCgYIKoZIzj0EAwIDSQAwRgIh
+APfxXQuXB1gzeYA6rB2bU5EpXNhWlgzLn2dfgvX9zOOvAiEAlR0ysDcul2tq18OZ
+bZyoZty3nRHOpOQGX0svT9IFPC8xggHiMIIB3gIBATCBjDB0MQswCQYDVQQGEwJV
+UzELMAkGA1UECAwCQ0ExFTATBgNVBAoMDENvbXBhbnkgTmFtZTEYMBYGA1UEAwwP
+Q29tcGFueSBOYW1lIENBMScwJQYJKoZIhvcNAQkBFhhzdXBwb3J0QGNvbXBhbnlf
+bmFtZS5jb20CFBlDRTPRTXN8CmUSJrGLEizvYDkJMA0GCWCGSAFlAwQCAQUAoIHk
+MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDUy
+MjIzMTYwNFowLwYJKoZIhvcNAQkEMSIEIJZZOVkwYecYfSphfG69pydngnmRocZ/
+wmWO/tpo8Fo1MHkGCSqGSIb3DQEJDzFsMGowCwYJYIZIAWUDBAEqMAsGCWCGSAFl
+AwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0G
+CCqGSIb3DQMCAgFAMAcGBSsOAwIHMA0GCCqGSIb3DQMCAgEoMAoGCCqGSM49BAMC
+BEgwRgIhAMhXARCLtIiselKCZ6efdzqnIk38r/b2iolk0XvUSiXMAiEAniLJQVae
+6ntG8K8Eta0Z2dF75m2qEmx504Q6nCe9yE8=
+
+------909A01D0ED1FB57A2C5F1FE0DAFCA834--
+

@@ -20,7 +20,7 @@
     xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/7.3.0/rti_routing_service.xsd">
 
     <!-- RS that is not behind a well-known public IP address -->
-    <routing_service name="RsConfig_passive">
+    <routing_service name="RsConfig_Active">
 
         <!-- The administration tag enables remote administration, and is 
             required when using Admin Console. -->
@@ -53,60 +53,18 @@
 
             <participant name="Local_domain">
                 <domain_id>1</domain_id>
-                <participant_qos base_name="BuiltinQosLib::Generic.Common"/>
+                <domain_participant_qos base_name="BuiltinQosLib::Generic.Common"/>
             </participant>
 
             <participant name="WAN_domain">
                 <domain_id>2</domain_id>
-                <participant_qos base_name="BuiltinQosLib::Generic.Common">
-                    <base_name>
-                        <element>BuiltinQosSnippetLib::Feature.Security.Enable</element>
-                    </base_name>
-                    <transport_builtin>
-                        <mask>UDPv4_WAN</mask>
-                        <udpv4_wan>
-                            <public_address>$(PUBLIC_ADDRESS)</public_address>
-                            <comm_ports>
-                                <default>
-                                    <public>$(PUBLIC_PORT)</public>
-                                    <host>$(INTERNAL_PORT)</host>
-                                </default>
-                            </comm_ports>
-                        </udpv4_wan>
-                    </transport_builtin>
-                    <property>
-                        <value>
-                            <element>
-                                <name>com.rti.serv.secure.logging.verbosity</name>
-                                <value>CRITICAL</value>
-                            </element>
-                            <element>
-                                <name>dds.sec.auth.identity_ca</name>
-                                <value>file:$(SECURITY_FILES_PATH)/resource/cert/ecdsa01/ca/ecdsa01RootCaCert.pem</value>
-                            </element>
-                            <element>
-                                <name>dds.sec.access.permissions_ca</name>
-                                <value>file:$(SECURITY_FILES_PATH)/resource/cert/ecdsa01/ca/ecdsa01RootCaCert.pem</value>
-                            </element>
-                            <element>
-                                <name>dds.sec.auth.identity_certificate</name>
-                                <value>file:$(SECURITY_FILES_PATH)/resource/cert/ecdsa01/identities/ecdsa01Peer01Cert.pem</value>
-                            </element>
-                            <element>
-                                <name>dds.sec.auth.private_key</name>
-                                <value>file:$(SECURITY_FILES_PATH)/resource/cert/ecdsa01/identities/ecdsa01Peer01Key.pem</value>
-                            </element>
-                            <element>
-                                <name>dds.sec.access.governance</name>
-                                <value>file:$(SECURITY_FILES_PATH)/resource/xml/signed/RTI_SHAPES_DEMO_GOVERNANCE_MAX.p7s</value>
-                            </element>
-                            <element>
-                                <name>dds.sec.access.permissions</name>
-                                <value>file:$(SECURITY_FILES_PATH)/resource/xml/signed/RTI_SHAPES_DEMO_PERMISSIONS.p7s</value>
-                            </element>
-                        </value>
-                    </property>
-                </participant_qos>
+                <domain_participant_qos base_name="MyQosLib::CommonWanConfig">
+                    <discovery>
+                        <initial_peers>
+                            <element>rtps@udpv4_wan://$(PUBLIC_ADDRESS):$(PUBLIC_PORT)</element>
+                        </initial_peers>
+                    </discovery>
+                </domain_participant_qos>
             </participant>
 
             <session name="Local_to_WAN_session">

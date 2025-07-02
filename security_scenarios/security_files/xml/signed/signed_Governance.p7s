@@ -1,0 +1,82 @@
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----2A0983E3F048CF8E3753216AC20FBD0E"
+
+This is an S/MIME signed message
+
+------2A0983E3F048CF8E3753216AC20FBD0E
+Content-Type: text/plain
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2024 Copyright, Real-Time Innovations, Inc. (RTI) All rights reserved.
+
+RTI grants Licensee a license to use, modify, compile, and create derivative
+works of the software solely for use with RTI Connext DDS.  Licensee may
+redistribute copies of the software provided that all such copies are
+subject to this license. The software is provided "as is", with no warranty
+of any type, including any warranty for fitness for any purpose. RTI is
+under no obligation to maintain or support the software.  RTI shall not be
+liable for any incidental or consequential damages arising out of the use or
+inability to use the software. -->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/7.3.0/dds_security_governance.xsd">
+    <domain_access_rules>
+        <domain_rule>
+            <domains>
+                <id_range>
+                    <min>2</min>
+                </id_range>
+            </domains>
+            <allow_unauthenticated_participants>false</allow_unauthenticated_participants>
+            <enable_join_access_control>true</enable_join_access_control>
+            <discovery_protection_kind>NONE</discovery_protection_kind>
+            <liveliness_protection_kind>NONE</liveliness_protection_kind>
+            <!-- With rtps_protection_kind = ENCRYPT, everything will be encrypted -->
+            <rtps_protection_kind>ENCRYPT</rtps_protection_kind>
+            <!-- If we needed to apply different rules for different topics, we would -->
+            <!-- do that in <topic_access_rules>. To keep things simple, all the topics -->
+            <!-- will use the same settings -->
+            <topic_access_rules>
+                <topic_rule>
+                    <topic_expression>*</topic_expression>
+                    <enable_discovery_protection>false</enable_discovery_protection>
+                    <enable_liveliness_protection>false</enable_liveliness_protection>
+                    <enable_read_access_control>true</enable_read_access_control>
+                    <enable_write_access_control>true</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>
+                </topic_rule>
+            </topic_access_rules>
+        </domain_rule>
+    </domain_access_rules>
+</dds>
+
+------2A0983E3F048CF8E3753216AC20FBD0E
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIIEBQYJKoZIhvcNAQcCoIID9jCCA/ICAQExDzANBglghkgBZQMEAgEFADALBgkq
+hkiG9w0BBwGgggHoMIIB5DCCAYkCFBlDRTPRTXN8CmUSJrGLEizvYDkJMAoGCCqG
+SM49BAMCMHQxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEVMBMGA1UECgwMQ29t
+cGFueSBOYW1lMRgwFgYDVQQDDA9Db21wYW55IE5hbWUgQ0ExJzAlBgkqhkiG9w0B
+CQEWGHN1cHBvcnRAY29tcGFueV9uYW1lLmNvbTAeFw0yNTA1MjIyMzE2MDRaFw0z
+MDA1MjEyMzE2MDRaMHQxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEVMBMGA1UE
+CgwMQ29tcGFueSBOYW1lMRgwFgYDVQQDDA9Db21wYW55IE5hbWUgQ0ExJzAlBgkq
+hkiG9w0BCQEWGHN1cHBvcnRAY29tcGFueV9uYW1lLmNvbTBZMBMGByqGSM49AgEG
+CCqGSM49AwEHA0IABF4lKb4q52WAObhL5khmXEEmS61KXbihjHdXV1XIXsg4ECd7
+toikRVlXWD2Ruuz7QwHyW49ZJkrYS5awXP+uXV4wCgYIKoZIzj0EAwIDSQAwRgIh
+APfxXQuXB1gzeYA6rB2bU5EpXNhWlgzLn2dfgvX9zOOvAiEAlR0ysDcul2tq18OZ
+bZyoZty3nRHOpOQGX0svT9IFPC8xggHhMIIB3QIBATCBjDB0MQswCQYDVQQGEwJV
+UzELMAkGA1UECAwCQ0ExFTATBgNVBAoMDENvbXBhbnkgTmFtZTEYMBYGA1UEAwwP
+Q29tcGFueSBOYW1lIENBMScwJQYJKoZIhvcNAQkBFhhzdXBwb3J0QGNvbXBhbnlf
+bmFtZS5jb20CFBlDRTPRTXN8CmUSJrGLEizvYDkJMA0GCWCGSAFlAwQCAQUAoIHk
+MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDUy
+MjIzMTYwNFowLwYJKoZIhvcNAQkEMSIEIJvzpTnX7dmV+1FJLxeOKbqTD+1d/834
+zMQj5hHo8ERtMHkGCSqGSIb3DQEJDzFsMGowCwYJYIZIAWUDBAEqMAsGCWCGSAFl
+AwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0G
+CCqGSIb3DQMCAgFAMAcGBSsOAwIHMA0GCCqGSIb3DQMCAgEoMAoGCCqGSM49BAMC
+BEcwRQIger8qCi9flZ9edvAIgGDIMBsvMi2+DxYbz7ksO8e30f4CIQCuciUHa8sL
+Apr8/N2ojrSNZvqrFDIcW6yVz3kqB7y0Cw==
+
+------2A0983E3F048CF8E3753216AC20FBD0E--
+

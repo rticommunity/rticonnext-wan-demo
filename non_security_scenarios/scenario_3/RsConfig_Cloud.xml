@@ -53,9 +53,8 @@
 
             <participant name="WAN_domain">
                 <domain_id>2</domain_id>
-                <participant_qos base_name="BuiltinQosLib::Generic.Common">
+                <domain_participant_qos base_name="MyQosLib::CommonWanConfig">
                     <transport_builtin>
-                        <mask>UDPv4_WAN</mask>
                         <udpv4_wan>
                             <public_address>$(PUBLIC_ADDRESS)</public_address>
                             <comm_ports>
@@ -66,11 +65,11 @@
                             </comm_ports>
                         </udpv4_wan>
                     </transport_builtin>
-                </participant_qos>
+                </domain_participant_qos>
             </participant>
 
-            <session name="Session1">
-                <auto_topic_route name="AllForward">
+            <session name="WAN_to_WAN_session">
+                <auto_topic_route name="WAN_to_WAN_route">
                     <publish_with_original_info>true</publish_with_original_info>
                     <input participant="WAN_domain">
                         <allow_topic_name_filter>*</allow_topic_name_filter>

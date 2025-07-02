@@ -25,7 +25,7 @@ def get_stun_info(retries=3, delay=2):
 
 def check_cone_nat():
 
-    print("\nRunning... This will take a few seconds.\n")
+    print("\nRunning... This will take a few seconds\n")
 
     try:
         nat_type, external_ip, external_port = get_stun_info()

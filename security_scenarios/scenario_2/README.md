@@ -1,4 +1,4 @@
-# Security scenario 2
+# Security scenario 2: Peer-to-peer communication with DomainParticipants behind cone NATs using Cloud Discovery Service, securing the WAN domain
 
 ## Requirements
 
@@ -7,12 +7,17 @@ Packages:
 ```plaintext
 rti_connext_dds-7.3.0-pro-host-<architecture>.<run/exe>
 rti_real_time_wan_transport-7.3.0-host-<architecture>.rtipkg
-rti_cloud_discovery_service-7.3.0-host-<architecture>.rtipkg
-rti_security_plugins-7.3.0-host-<architecture>.rtipkg
+rti_cloud_discovery_service-7.3.0-host-<architecture>.rtipkg (only on the Cloud)
+rti_security_plugins-7.3.0-host-openssl-3.0-<architecture>.rtipkg
+openssl-3.0.12-7.3.0-host-<architecture>.rtipkg
 ```
 
+This scenario requires Home Office 1 and Home Office 2 NATs to be cone NATs.
+You can use the NAT type checker script in [resources/nat_type_checker](../../resources/nat_type_checker)
+to make sure you have cone NATs.
+
 With regards to network configuration, you'll need to add a security rule on
-your AWS instance to allow incoming / outgoing traffic on PUBLIC_PORT, for the
+your AWS instance to allow incoming / outgoing traffic on `PUBLIC_PORT` for the
 UDP protocol. For instance:
 
 ![AWS Configuration](../../resources/images/configuration_aws.png)
@@ -24,13 +29,13 @@ UDP protocol. For instance:
 Cloud Discovery Service will put the Active Routing Services in contact when
 they reach out to it. The Active Routing Services will point their their
 initial peers at AWS. In the diagram above, AWS's address needs to be known by
-the remote Active Routing Services. Only domain 2 (WAN) will be secured.
+the remote Active Routing Services. Only **domain 2** (WAN) will be secured.
 
 ## How to run this scenario
 
 On AWS:
 
-1. In a terminal, set up NDDSHOME pointing at the Connext installation and set these variables:
+1. In a terminal, set up `NDDSHOME` pointing at the Connext installation and set these variables:
 
     ```bash
     export PUBLIC_ADDRESS=<public_IP_address>
@@ -46,55 +51,43 @@ On AWS:
 
 On Home Office 1:
 
-1. Start a Shapes Demo publisher on domain 1. Publish some shapes.
-2. In a terminal, set up NDDSHOME pointing at the Connext installation and set these variables:
+1. Start a Shapes Demo publisher on **domain 1**. Publish some shapes.
+2. In a terminal, set up `NDDSHOME` pointing at the Connext installation and set these variables:
 
     ```bash
     export PUBLIC_ADDRESS=<public_IP_address>
     export PUBLIC_PORT=<PUBLIC_PORT>
     ```
 
-3. Set the SECURITY_FILES_PATH environment variable pointing at the security files folder. This could be NDDSHOME or the *security_files* folder in this repository:
-
-    ```bash
-    export SECURITY_FILES_PATH=security_scenarios/security_files/
-    ```
-
-4. Run Routing Service:
+3. Run Routing Service:
 
     ```bash
     cd security_scenarios/scenario_2/
-    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_Local.xml -cfgName RsConfig_Local
+    $NDDSHOME/bin/rtiroutingservice -cfgFile "../../Qos.xml;RsConfig_Active.xml" -cfgName RsConfig_Active
     ```
 
 On Home Office 2:
 
-1. Start a Shapes Demo subscriber on domain 1. Subscribe to some shapes.
-2. In a terminal, set up NDDSHOME pointing at the Connext installation and set these variables:
+1. Start a Shapes Demo subscriber on **domain 1**. Subscribe to some shapes.
+2. In a terminal, set up `NDDSHOME` pointing at the Connext installation and set these variables:
 
     ```bash
     export PUBLIC_ADDRESS=<public_IP_address>
     export PUBLIC_PORT=<PUBLIC_PORT>
     ```
 
-3. Set the SECURITY_FILES_PATH environment variable pointing at the security files folder. This could be NDDSHOME or the *security_files* folder in this repository:
-
-    ```bash
-    export SECURITY_FILES_PATH=security_scenarios/security_files/
-    ```
-
-4. Run Routing Service:
+3. Run Routing Service:
 
     ```bash
     cd security_scenarios/scenario_2/
-    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_Local.xml -cfgName RsConfig_Local
+    $NDDSHOME/bin/rtiroutingservice -cfgFile "../../Qos.xml;RsConfig_Active.xml" -cfgName RsConfig_Active
     ```
 
 ## Expected output
 
-After some seconds, once discovery is completed, Home Office 2 should start
+After a few seconds, once discovery is completed, Home Office 2 should start
 receiving the shapes that Home Office 1 publishes. Actually, you could start
 any number of Shapes Demo publishers on either side and the other one should
-receive those, as well. Routing Service helps with scalability because you do
-not need to initiate new WAN connections per application, you just need Routing
-Service to take care of that for you.
+receive those as well. Routing Service helps with scalability because you do
+not need to initiate new WAN connections per application, Routing Service will
+simply take care of that for you.

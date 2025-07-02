@@ -20,7 +20,7 @@
     xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/7.3.0/rti_routing_service.xsd">
 
     <!-- RS that is not behind a well-known public IP address -->
-    <routing_service name="RsConfig_Local">
+    <routing_service name="RsConfig_Active">
 
         <!-- The administration tag enables remote administration, and is 
             required when using Admin Console. -->
@@ -53,21 +53,31 @@
 
             <participant name="Local_domain">
                 <domain_id>1</domain_id>
-                <participant_qos base_name="BuiltinQosLib::Generic.Common"/>
+                <domain_participant_qos base_name="BuiltinQosLib::Generic.Common"/>
             </participant>
 
             <participant name="WAN_domain">
                 <domain_id>2</domain_id>
-                <participant_qos base_name="BuiltinQosLib::Generic.Common">
-                    <transport_builtin>
-                        <mask>UDPv4_WAN</mask>
-                    </transport_builtin>
+                <domain_participant_qos base_name="MyQosLib::RsActiveSecurity">
                     <discovery>
                         <initial_peers>
                             <element>rtps@udpv4_wan://$(PUBLIC_ADDRESS):$(PUBLIC_PORT)</element>
                         </initial_peers>
                     </discovery>
-                </participant_qos>
+                    <property>
+                        <value>
+                            <!-- CDS security config -->
+                            <element>
+                                <name>com.rti.serv.secure.cryptography.rtps_protection_key</name>
+                                <value>str:key0</value>
+                            </element>
+                            <element>
+                                <name>com.rti.serv.secure.authentication.participant_discovery_protection_key</name>
+                                <value>str:key1</value>
+                            </element>
+                        </value>
+                    </property>
+                </domain_participant_qos>
             </participant>
 
             <session name="Local_to_WAN_session">

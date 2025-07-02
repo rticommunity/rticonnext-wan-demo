@@ -1,4 +1,4 @@
-# Non-security scenario 3
+# Non-security scenario 3: Relayed communication with DomainParticipants behind any NAT using Routing Service
 
 ## Requirements
 
@@ -10,7 +10,7 @@ rti_real_time_wan_transport-7.3.0-host-<architecture>.rtipkg
 ```
 
 With regards to network configuration, you'll need to add a security rule on
-your AWS instance to allow incoming / outgoing traffic on PUBLIC_PORT, for the
+your AWS instance to allow incoming / outgoing traffic on `PUBLIC_PORT` for the
 UDP protocol. For instance:
 
 ![AWS Configuration](../../resources/images/configuration_aws.png)
@@ -21,7 +21,7 @@ UDP protocol. For instance:
 
 The AWS Passive Routing Service will listen for incoming communications. The
 Active Routing Services will use their initial peers to start the communication
-with the Passive one. AWS's Routing Service will relay the communication. In the
+with the AWS one. AWS Routing Service will relay the communication. In the
 diagram above, the public address needs to be known by the remote Active
 Routing Services.
 
@@ -29,7 +29,7 @@ Routing Services.
 
 On AWS:
 
-1. In a terminal, set up NDDSHOME pointing at the Connext installation and set these variables:
+1. In a terminal, set up `NDDSHOME` pointing at the Connext installation and set these variables:
 
     ```bash
     export PUBLIC_ADDRESS=<public_IP_address>
@@ -41,13 +41,13 @@ On AWS:
 
     ```bash
     cd non_security_scenarios/scenario_3/
-    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_Cloud.xml -cfgName RsConfig_Cloud
+    $NDDSHOME/bin/rtiroutingservice -cfgFile "../../Qos.xml;RsConfig_Cloud.xml" -cfgName RsConfig_Cloud
     ```
 
 On Home Office 1:
 
-1. Start a Shapes Demo publisher on domain 1. Publish some shapes.
-2. In a terminal, set up NDDSHOME pointing at the Connext installation and set these variables:
+1. Start a Shapes Demo publisher on **domain 1**. Publish some shapes.
+2. In a terminal, set up `NDDSHOME` pointing at the Connext installation and set these variables:
 
     ```bash
     export PUBLIC_ADDRESS=<public_IP_address>
@@ -58,13 +58,13 @@ On Home Office 1:
 
     ```bash
     cd non_security_scenarios/scenario_3/
-    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_Local.xml -cfgName RsConfig_Local
+    $NDDSHOME/bin/rtiroutingservice -cfgFile "../../Qos.xml;RsConfig_Active.xml" -cfgName RsConfig_Active
     ```
 
 On Home Office 2:
 
-1. Start a Shapes Demo subscriber on domain 1. Subscribe to some shapes.
-2. In a terminal, set up NDDSHOME pointing at the Connext installation and set these variables:
+1. Start a Shapes Demo subscriber on **domain 1**. Subscribe to some shapes.
+2. In a terminal, set up `NDDSHOME` pointing at the Connext installation and set these variables:
 
     ```bash
     export PUBLIC_ADDRESS=<public_IP_address>
@@ -75,14 +75,14 @@ On Home Office 2:
 
     ```bash
     cd non_security_scenarios/scenario_3/
-    $NDDSHOME/bin/rtiroutingservice -cfgFile RsConfig_Local.xml -cfgName RsConfig_Local
+    $NDDSHOME/bin/rtiroutingservice -cfgFile "../../Qos.xml;RsConfig_Active.xml" -cfgName RsConfig_Active
     ```
 
 ## Expected output
 
-After some seconds, once discovery is completed, Home Office 2 should start
+After a few seconds, once discovery is completed, Home Office 2 should start
 receiving the shapes that Home Office 1 publishes. Actually, you could start
 any number of Shapes Demo publishers on either side and the other one should
-receive those, as well. Routing Service helps with scalability because you do
-not need to initiate new WAN connections per application, you just need Routing
-Service to take care of that for you.
+receive those as well. Routing Service helps with scalability because you do
+not need to initiate new WAN connections per application, Routing Service will
+simply take care of that for you.

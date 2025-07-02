@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+ (c) 2021 Copyright, Real-Time Innovations, Inc. (RTI) All rights reserved.
+
+ RTI grants Licensee a license to use, modify, compile, and create derivative
+ works of the Software solely in combination with RTI Connext DDS. Licensee
+ may redistribute copies of the Software provided that all such copies are
+ subject to this License. The Software is provided "as is", with no warranty
+ of any type, including any warranty for fitness for any purpose. RTI is
+ under no obligation to maintain or support the Software. RTI shall not be
+ liable for any incidental or consequential damages arising out of the use or
+ inability to use the Software. For purposes of clarity, nothing in this
+ License prevents Licensee from using alternate versions of DDS, provided
+ that Licensee may not combine or link such alternate versions of DDS with
+ the Software.
+
+-->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/7.3.0/rti_dds_profiles.xsd">
+
+    <qos_library name="MyQosLib">
+        <qos_profile name="CommonWanConfig" base_name="BuiltinQosLib::Generic.Common">
+            <domain_participant_qos>
+                <transport_builtin>
+                    <mask>UDPv4_WAN</mask>
+                </transport_builtin>
+                <discovery_config>
+                    <!-- This helps speed upd discovery -->
+                    <participant_liveliness_assert_period>
+                        <sec>1</sec>
+                        <nanosec>0</nanosec>
+                    </participant_liveliness_assert_period>
+                </discovery_config>
+            </domain_participant_qos>
+        </qos_profile>
+
+        <qos_profile name="CommonSecurityConfig" base_name="BuiltinQosLib::Generic.Common">
+            <domain_participant_qos>
+                <base_name>
+                    <element>BuiltinQosSnippetLib::Feature.Security.Enable</element>
+                </base_name>
+                <property>
+                    <value>
+                        <element>
+                            <name>com.rti.serv.secure.logging.verbosity</name>
+                            <value>CRITICAL</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.auth.identity_ca</name>
+                            <value>file:../security_files/ca/CaIdentity.pem</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.access.permissions_ca</name>
+                            <value>file:../security_files/ca/CaIdentity.pem</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.access.governance</name>
+                            <value>file:../security_files/xml/signed/signed_Governance.p7s</value>
+                        </element>
+                    </value>
+                </property>
+            </domain_participant_qos>
+        </qos_profile>
+
+        <qos_profile name="RsPassiveSecurity" base_name="BuiltinQosLib::Generic.Common">
+            <domain_participant_qos>
+                <base_name>
+                    <element>MyQosLib::CommonWanConfig</element>
+                    <element>MyQosLib::CommonSecurityConfig</element>
+                </base_name>
+                <property>
+                    <value>
+                        <element>
+                            <name>dds.sec.auth.identity_certificate</name>
+                            <value>file:../security_files/identities/RsPassive/RsPassiveIdentity.pem</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.auth.private_key</name>
+                            <value>file:../security_files/identities/RsPassive/RsPassivePrivateKey.pem</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.access.permissions</name>
+                            <value>file:../security_files/xml/signed/signed_Permissions_RsPassive.p7s</value>
+                        </element>
+                    </value>
+                </property>
+            </domain_participant_qos>
+        </qos_profile>
+
+        <qos_profile name="RsActiveSecurity" base_name="BuiltinQosLib::Generic.Common">
+            <domain_participant_qos>
+                <base_name>
+                    <element>MyQosLib::CommonWanConfig</element>
+                    <element>MyQosLib::CommonSecurityConfig</element>
+                </base_name>
+                <property>
+                    <value>
+                        <element>
+                            <name>dds.sec.auth.identity_certificate</name>
+                            <value>file:../security_files/identities/RsActive/RsActiveIdentity.pem</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.auth.private_key</name>
+                            <value>file:../security_files/identities/RsActive/RsActivePrivateKey.pem</value>
+                        </element>
+                        <element>
+                            <name>dds.sec.access.permissions</name>
+                            <value>file:../security_files/xml/signed/signed_Permissions_RsActive.p7s</value>
+                        </element>
+                    </value>
+                </property>
+            </domain_participant_qos>
+        </qos_profile>
+    </qos_library>
+</dds>

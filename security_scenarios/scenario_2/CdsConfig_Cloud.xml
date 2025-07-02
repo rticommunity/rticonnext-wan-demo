@@ -35,6 +35,7 @@
         </transport>
         <security>
             <property>
+                <!-- CDS security config -->
                 <element>
                     <name>com.rti.serv.secure.cryptography.rtps_protection_key</name>
                     <value>str:key0</value>
